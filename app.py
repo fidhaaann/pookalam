@@ -456,7 +456,7 @@ def draw_center_mandala(t):
     
     # Central circle
     t.penup()
-    t.goto(0, -8)
+    t.goto(8, 4)
     t.pendown()
     t.fillcolor("#8B0000")
     t.begin_fill()
@@ -558,3 +558,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
