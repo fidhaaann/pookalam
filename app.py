@@ -22,30 +22,35 @@ def draw_8_sector_circle(t, radius):
     """Draw main circle divided into 8 sectors with alternating yellow and orange colors"""
     sector_colors = ["#ffff00", "#ffa500"]  # Yellow and orange
     
+    # Draw each sector as a perfect pie slice
     for i in range(8):
-        angle = i * 45  # 360/8 = 45 degrees per sector
+        start_angle = i * 45  # 360/8 = 45 degrees per sector
         color = sector_colors[i % 2]  # Alternate between yellow and orange
         
-        # Draw each sector as a triangle from center
+        # Move to center and set angle
         t.penup()
         t.goto(0, 0)
-        t.setheading(angle)
+        t.setheading(start_angle - 90)  # Adjust for turtle's coordinate system
         t.pendown()
         
+        # Fill the sector
         t.fillcolor(color)
         t.begin_fill()
         
-        # Draw sector triangle
+        # Draw perfect pie sector
         t.forward(radius)
-        t.left(135)  # Turn to draw arc
-        t.circle(radius, 45)  # Draw 45-degree arc
-        t.goto(0, 0)  # Return to center
+        t.left(90)
+        t.circle(radius, 45)  # Draw exactly 45-degree arc
+        t.left(90)
+        t.forward(radius)
+        t.left(135)  # Return to start position
         
         t.end_fill()
     
-    # Draw division lines
+    # Draw the sector division lines
     t.pencolor("black")
     t.pensize(2)
+    
     for i in range(8):
         angle = i * 45
         t.penup()
@@ -451,7 +456,7 @@ def draw_center_mandala(t):
     
     # Central circle
     t.penup()
-    t.goto(8, 4)
+    t.goto(0, -8)
     t.pendown()
     t.fillcolor("#8B0000")
     t.begin_fill()
@@ -529,7 +534,7 @@ def main():
     # 2. Border decoration
     draw_border_decoration(t)
     
-    # 3. NEW: 8-sector main circle (drawn before other elements)
+    # 3. Enhanced 8-sector main circle with perfect pie slices
     draw_8_sector_circle(t, 280)
     
     # 4. Intermediate rings (perfectly aligned)
@@ -541,7 +546,7 @@ def main():
     # 6. Center star (8-fold symmetry)
     draw_center_star(t, 70)
     
-    # 7. NEW: Elaborate center mandala (replaces simple center circle)
+    # 7. Elaborate center mandala
     draw_center_mandala(t)
     
     # Update screen to show final result
